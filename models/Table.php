@@ -36,16 +36,8 @@ class Table{
       $home_team = $result['home_team'];
       $away_team = $result['away_team'];
 
-      if ($result['outcome'] === "H") {
-        $this->teams[$result['home_team']]->addResult('win');
-        $this->teams[$result['away_team']]->addResult('loss');
-      } else if ($result['outcome'] === "A") {
-        $this->teams[$result['home_team']]->addResult('loss');
-        $this->teams[$result['away_team']]->addResult('win');
-      } else {
-        $this->teams[$result['home_team']]->addResult('draw');
-        $this->teams[$result['away_team']]->addResult('draw');
-      }
+        $this->teams[$result['home_team']]->addResult($result);
+        $this->teams[$result['away_team']]->addResult($result);
     }
   }
 
@@ -59,6 +51,9 @@ class Table{
     if (count($this->teams) < 1) return "Table must be built first";
     $teams = array_values($this->teams);
     function sortByPoints($a, $b) {
+      if ($b->points === $a->points) {
+        return $b->getGoalDifference() - $a->getGoalDifference();
+      }
       return $b->points - $a->points;
     }
     uasort($teams, "sortByPoints");

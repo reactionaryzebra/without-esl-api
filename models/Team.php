@@ -6,13 +6,33 @@ class Team{
   public $losses;
   public $draws;
   public $points;
+  public $goals_scored;
+  public $goals_against;
 
   public function __construct($name) {
     $this->name = $name;
   }
 
-  public function addResult($outcome) {
-    switch ($outcome) {
+  public function addResult($result) {
+    $is_home_team = $result['home_team'] === $this->name;
+    if ($is_home_team) {
+      $this->goals_scored = $this->goals_scored + $result['home_team_goals'];
+      $this->goals_against = $this->goals_against + $result['away_team_goals'];
+    } else {
+      $this->goals_scored = $this->goals_scored + $result['away_team_goals'];
+      $this->goals_against = $this->goals_against + $result['home_team_goals'];
+    }
+    $resolved_outcome = '';
+    if ($result['outcome'] === "D") {
+      $resolved_outcome = 'draw';
+    } else if (($is_home_team && $result['outcome'] === "H") || (!$is_home_team && $result['outcome'] === "A")) {
+      $resolved_outcome = "win";
+    }
+    else {
+      $resolved_outcome = 'loss';
+    }
+    echo $resolved_outcome;
+    switch ($resolved_outcome) {
       case 'win':
         $this->wins = $this->wins + 1;
         $this->points = $this->points + 3;
@@ -28,5 +48,10 @@ class Team{
         break;
     }
   }
+
+  public function getGoalDifference() {
+    return $this->goals_scored - $this->goals_against;
+  }
+
 }
  ?>
