@@ -58,8 +58,7 @@ class Table{
       }
       return $b->points - $a->points;
     }
-    uasort($teams, "sortByPoints");
-    echo "<pre>"; print_r($teams);
+    usort($teams, "sortByPoints");
     return $teams;
   }
 }
