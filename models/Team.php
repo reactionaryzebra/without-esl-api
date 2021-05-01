@@ -8,7 +8,7 @@ class Team{
   public $points;
 
   public function __construct($name) {
-    $this->team = $name;
+    $this->name = $name;
   }
 
   public function addResult($outcome) {
