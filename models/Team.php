@@ -31,7 +31,7 @@ class Team{
     else {
       $resolved_outcome = 'loss';
     }
-    echo $resolved_outcome;
+
     switch ($resolved_outcome) {
       case 'win':
         $this->wins = $this->wins + 1;
