@@ -35,9 +35,11 @@ class Table{
     foreach ($results as $result) {
       $home_team = $result['home_team'];
       $away_team = $result['away_team'];
-
-        $this->teams[$result['home_team']]->addResult($result);
-        $this->teams[$result['away_team']]->addResult($result);
+      if (in_array($home_team, $this->excluded_teams) || in_array($away_team, $this->excluded_teams)) {
+        continue;
+      }
+      $this->teams[$home_team]->addResult($result);
+      $this->teams[$away_team]->addResult($result);
     }
   }
 
