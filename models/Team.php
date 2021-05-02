@@ -6,7 +6,7 @@ class Team{
   public $losses;
   public $draws;
   public $points;
-  public $goals_scored;
+  public $goals_for;
   public $goals_against;
 
   public function __construct($name) {
@@ -16,10 +16,10 @@ class Team{
   public function addResult($result) {
     $is_home_team = $result['home_team'] === $this->name;
     if ($is_home_team) {
-      $this->goals_scored = $this->goals_scored + $result['home_team_goals'];
+      $this->goals_for = $this->goals_for + $result['home_team_goals'];
       $this->goals_against = $this->goals_against + $result['away_team_goals'];
     } else {
-      $this->goals_scored = $this->goals_scored + $result['away_team_goals'];
+      $this->goals_for = $this->goals_for + $result['away_team_goals'];
       $this->goals_against = $this->goals_against + $result['home_team_goals'];
     }
     $resolved_outcome = '';
@@ -50,7 +50,7 @@ class Team{
   }
 
   public function getGoalDifference() {
-    return $this->goals_scored - $this->goals_against;
+    return $this->goals_for - $this->goals_against;
   }
 
 }
