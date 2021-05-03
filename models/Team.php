@@ -1,13 +1,13 @@
 <?php
 class Team{
 
-  public $name;
-  public $wins;
-  public $losses;
-  public $draws;
-  public $points;
-  public $goals_for;
-  public $goals_against;
+  public $name = "";
+  public $wins = 0;
+  public $losses = 0;
+  public $draws = 0;
+  public $points = 0;
+  public $goals_for = 0;
+  public $goals_against = 0;
 
   public function __construct($name) {
     $this->name = $name;
